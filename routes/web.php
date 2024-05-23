@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+// Rutas de vistas
+Route::get('/',function(){
+    return view('login'); // Formulario login
+});
+
+Route::get('register',function(){
+    return view('register'); // Formulario register
+});
+
+Route::get('dashboard',function(){
+    return view('dashboard');
 });
