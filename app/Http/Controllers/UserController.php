@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class UserController extends Controller
@@ -25,12 +26,12 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'phone' => 'required|numeric|unique:users',
             'password' => 'required|string',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
+            'latitude' => 'numeric',
+            'longitude' => 'numeric',
         ]);
 
         if ($validator->fails()){
-            return "Error :s";
+            return response()->json(['errors' => $validator->errors()], 400);
         }
 
         $user = User::create([
@@ -42,9 +43,13 @@ class UserController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => $request->password,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
+            'latitude' => 18,
+            'longitude' => 3,
+            // 'latitude' => $request->latitude,
+            // 'longitude' => $request->longitude,
         ]);
+
+        return view('login');
     }
 
     public function edit(string $id)
@@ -64,7 +69,13 @@ class UserController extends Controller
         
     }
 
-    public function login(){
+    public function login(Request $request){
+        $credenciales = $request->only('email','password');
         
+        if(Auth::attempt($credenciales)){
+            return view('dashboard');
+        }else{
+            return back()->withErrors(['message' => 'Credenciales incorrectas.'])->withInput();
+        }
     }
 }

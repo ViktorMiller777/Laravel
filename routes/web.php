@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +28,6 @@ Route::get('register',function(){
 Route::get('dashboard',function(){
     return view('dashboard');
 });
+
+Route::post('register',[UserController::class,'register'])->name('registerpost');
+Route::post('login',[UserController::class,'login'])->name('loginpost');

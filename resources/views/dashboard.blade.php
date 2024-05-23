@@ -1,1 +1,1 @@
-<h1>Este es el dashboard</h1>
+<h1>Bienvendio a los Vanderlinde :D</h1>
