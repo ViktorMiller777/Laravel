@@ -4,17 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 
 // Rutas de vistas
 Route::get('/',function(){
@@ -29,5 +18,8 @@ Route::get('dashboard',function(){
     return view('dashboard');
 });
 
+Route::get('dashboard', [UserController::class, 'index'])->name('dashboard');
+
 Route::post('register',[UserController::class,'register'])->name('registerpost');
+
 Route::post('login',[UserController::class,'login'])->name('loginpost');

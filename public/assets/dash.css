@@ -1,0 +1,23 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+}
+h1{
+    color: white;
+    border-bottom: 1px solid red;
+    font-family:'Courier New', Courier, monospace;
+}
+label{
+    border: 1px solid red;
+}
+td{
+    height: 10px;
+    width: 15px;
+    margin-left: 5px;
+    border: 1px solid red;
+}
+th{
+    border: 1px solid red;
+}

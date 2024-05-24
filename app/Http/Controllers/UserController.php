@@ -11,8 +11,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = User::all();
-        return $user;
+        $users = User::all();
+        return view('dashboard',['users'=>$users]);
     }
 
     public function register(Request $request)
@@ -73,9 +73,15 @@ class UserController extends Controller
         $credenciales = $request->only('email','password');
         
         if(Auth::attempt($credenciales)){
-            return view('dashboard');
+            return redirect()->route('dashboard');
         }else{
             return back()->withErrors(['message' => 'Credenciales incorrectas.'])->withInput();
         }
+    }
+
+    public function logout(){
+        Auth::logout();
+
+        return view('login');
     }
 }
