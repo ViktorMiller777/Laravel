@@ -33,7 +33,7 @@
                             <form action="{{ route('registerpost') }}" method="POST">
                                 @csrf
                                 <div data-mdb-input-init class="form-outline form-white mb-4">
-                                    <input type="text" name="name" id="name" class="form-control form-control-lg" />
+                                    <input type="text" name="name" id="name" class="form-control form-control-lg"/>
                                     <label class="form-label" for="name">Nombre</label>
                                 </div>
                                 <div data-mdb-input-init class="form-outline form-white mb-4">

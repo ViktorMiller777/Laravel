@@ -48,8 +48,7 @@ class UserController extends Controller
             // 'latitude' => $request->latitude,
             // 'longitude' => $request->longitude,
         ]);
-
-        return view('login');
+        return view('login')->with('Success','Registro exitoso, porfavor inicia sesion.');
     }
 
     public function edit(string $id)

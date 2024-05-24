@@ -31,6 +31,12 @@
 
                   <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                   <p class="text-white-50 mb-5">Porfavor ingresa tu correo y contraseña!</p>
+                  @if (session('success'))
+                  <div class="alert alert-success mt-4">
+                    {{ session('success') }}
+                  </div>
+                  @endif
+            
                   <form action="{{ route('loginpost') }}" method="POST">
                   @csrf
                     <div data-mdb-input-init class="form-outline form-white mb-4">
@@ -44,8 +50,14 @@
                     </div>
                   <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
                   </form>
-                </div>
-
+                  @if ($errors->any())
+                  <div class="alert alert-danger mt-4">
+                    @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                    @endforeach
+                  </div>
+                  @endif
+                    </div>
                 <div>
                   <p class="mb-0">Aun no te has registrado? <a href="register" class="text-white-50 fw-bold">Registrate!</a>
                   </p>
