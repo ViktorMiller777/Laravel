@@ -31,10 +31,10 @@
 
                   <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                   <p class="text-white-50 mb-5">Porfavor ingresa tu correo y contraseña!</p>
-                  @if (session('success'))
-                  <div class="alert alert-success mt-4">
-                    {{ session('success') }}
-                  </div>
+                  @if (session('token'))
+                  <script>
+                  localStorage.setItem('auth_token', '{{ session('token') }}');
+                  </script>
                   @endif
             
                   <form action="{{ route('loginpost') }}" method="POST">

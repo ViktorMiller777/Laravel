@@ -16,9 +16,9 @@ Route::get('register',function(){
 
 Route::get('dashboard',function(){
     return view('dashboard');
-});
+})->middleware('auth:sanctum');
 
-Route::get('dashboard', [UserController::class, 'index'])->name('dashboard');
+Route::get('dashboard', [UserController::class, 'index'])->name('dashboard')->middleware('auth:sanctum');;
 
 Route::post('register',[UserController::class,'register'])->name('registerpost');
 

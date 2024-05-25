@@ -69,10 +69,17 @@ class UserController extends Controller
     }
 
     public function login(Request $request){
+
         $credenciales = $request->only('email','password');
-        
+
         if(Auth::attempt($credenciales)){
-            return redirect()->route('dashboard');
+
+            $user = Auth::user();
+
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            return redirect()->route('dashboard')->with('token',$token);
+
         }else{
             return back()->withErrors(['message' => 'Credenciales incorrectas.'])->withInput();
         }
