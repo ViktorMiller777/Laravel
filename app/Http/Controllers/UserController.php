@@ -69,9 +69,16 @@ class UserController extends Controller
         
     }
 
-    public function login(Request $request){
+    
+    public function logi(Request $request){
 
         $credenciales = $request->only('email','password');
+
+        $validate = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+            'g-recaptcha-response' => 'required|captcha'
+        ]);
 
         if(Auth::attempt($credenciales)){
 
@@ -92,17 +99,29 @@ class UserController extends Controller
         return view('login');
     }
 
-    public function puta(Request $request){
-        if(!Auth::attempt($request->only('email','password'))){
-            return response()->json(['message'=>'No autorizado'],401);
-        }
-        $user = User::where('email', $request['email'])->firstOrFail();
-        $token = $user->createToken('auth_token')->plainTextToken;
+    public function login(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-        return response()
-            ->json([
-                'message' => 'si jalo',
-                'accessToken' => $token
-            ]);
+        if ($validate->fails()) {
+  
+            return back()->withErrors($validate)->withInput();
+        }
+
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+
+            $user = Auth::user();
+            $token = $user->createToken('auth_token')->plainTextToken;
+            return redirect()->route('user.dashboard')->with('token', $token);
+        } else {
+        
+            return back()->withErrors(['message' => 'Credenciales incorrectas.'])->withInput();
+        }
     }
 }

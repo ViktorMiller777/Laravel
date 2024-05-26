@@ -48,6 +48,14 @@
                       <input type="password" name="password" id="password" class="form-control form-control-lg" />
                       <label class="form-label" for="password">Password</label>
                     </div>
+                    {!! NoCaptcha::renderJs() !!}
+                    {!! NoCaptcha::renderJs('fr', true, 'recaptchaCallback') !!}
+                    <center>{!! NoCaptcha::display(['data-theme' => 'dark']) !!}</center><br>
+                    @if ($errors->has('g-recaptcha-response'))
+                    <span class="help-block">
+                      <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                    </span>
+                    @endif
                   <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
                   </form>
                   @if ($errors->any())
