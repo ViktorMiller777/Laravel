@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Models\User;
 
 
 // Rutas de vistas
@@ -18,7 +17,8 @@ Route::get('dashboard',function(){
     return view('dashboard');
 })->middleware('auth:sanctum');
 
-Route::get('dashboard', [UserController::class, 'index'])->name('dashboard')->middleware('auth:sanctum');;
+
+Route::get('dashboard', [UserController::class, 'index'])->name('user.dashboard');
 
 Route::post('register',[UserController::class,'register'])->name('registerpost');
 

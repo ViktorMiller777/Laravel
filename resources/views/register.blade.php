@@ -30,7 +30,7 @@
 
                             <h2 class="fw-bold mb-1">Register</h2>
                             <p class="text-white-50 mb-5">Porfavor ingresa tus datos!</p>
-                            <form action="{{ route('registerpost') }}" method="POST">
+                            <form action="{{ route('registerpost') }}" method="POST" id="registerloco">
                                 @csrf
                                 <div data-mdb-input-init class="form-outline form-white mb-4">
                                     <input type="text" name="name" id="name" class="form-control form-control-lg"/>
@@ -76,6 +76,16 @@
         </div>
     </div>
     </section>
+    <script>
+      function onClick(e) {
+        e.preventDefault();
+        grecaptcha.ready(function() {
+          grecaptcha.execute('6LdmROgpAAAAANkD5RwgqMgJN95C2yYWc9UVds29', {action: 'submit'}).then(function(token) {
+              // Add your logic to submit to your backend server here.
+          });
+        });
+      }
+  </script>
     <script
         src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

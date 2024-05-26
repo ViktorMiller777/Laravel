@@ -28,6 +28,7 @@ class UserController extends Controller
             'password' => 'required|string',
             'latitude' => 'numeric',
             'longitude' => 'numeric',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
 
         if ($validator->fails()){
@@ -78,7 +79,7 @@ class UserController extends Controller
 
             $token = $user->createToken('auth_token')->plainTextToken;
 
-            return redirect()->route('dashboard')->with('token',$token);
+            return redirect()->route('user.dashboard')->with('token',$token);
 
         }else{
             return back()->withErrors(['message' => 'Credenciales incorrectas.'])->withInput();
@@ -89,5 +90,19 @@ class UserController extends Controller
         Auth::logout();
 
         return view('login');
+    }
+
+    public function puta(Request $request){
+        if(!Auth::attempt($request->only('email','password'))){
+            return response()->json(['message'=>'No autorizado'],401);
+        }
+        $user = User::where('email', $request['email'])->firstOrFail();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()
+            ->json([
+                'message' => 'si jalo',
+                'accessToken' => $token
+            ]);
     }
 }
