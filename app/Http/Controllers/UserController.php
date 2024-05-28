@@ -28,7 +28,6 @@ class UserController extends Controller
             'password' => 'required|string',
             'latitude' => 'numeric',
             'longitude' => 'numeric',
-            'g-recaptcha-response' => 'required|captcha',
         ]);
 
         if ($validator->fails()){
@@ -44,10 +43,8 @@ class UserController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => $request->password,
-            'latitude' => 18,
-            'longitude' => 3,
-            // 'latitude' => $request->latitude,
-            // 'longitude' => $request->longitude,
+            'latitude' => 0,
+            'longitude' => 0,
         ]);
         return view('login')->with('Success','Registro exitoso, porfavor inicia sesion.');
     }
@@ -68,7 +65,6 @@ class UserController extends Controller
         return ($user);
         
     }
-
     
     public function logi(Request $request){
 
@@ -124,4 +120,22 @@ class UserController extends Controller
             return back()->withErrors(['message' => 'Credenciales incorrectas.'])->withInput();
         }
     }
+
+    public function actualizar(Request $request, $id){
+
+        $user = User::findOrFail($id);
+        $user->latitude = $request->input('latitude');
+        $user->longitude = $request->input('longitude');
+
+        $user->save();
+    }
+
+    public function iniciarMap()
+    {
+        $coord = ['lat' => 25.676997, 'lng' => -100.309302]; // Coordenadas iniciales
+        $zoom = 10;
+    
+        return view('mapa', compact('coord', 'zoom'));
+    }
+    
 }

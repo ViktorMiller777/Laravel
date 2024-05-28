@@ -15,8 +15,17 @@ Route::get('register',function(){
 
 Route::get('dashboard',function(){
     return view('dashboard');
-})->middleware('auth:sanctum');
+});
 
+Route::get('mapa',function(){
+    return view('mapa');
+});
+
+
+
+Route::get('mapa',[UserController::class,'iniciarMapa']);
+
+Route::put('actualizar/{id}', [UserController::class, 'actualizar'])->name('actualizar_usuario');
 
 Route::get('dashboard', [UserController::class, 'index'])->name('user.dashboard');
 

@@ -29,8 +29,10 @@
                             <th>Nombre</th>
                             <th>Apellido paterno</th>
                             <th>Apellido materno</th>
-                            <th>Edad</th>
-                            <th>Email</th>
+                            <th>latitude</th>
+                            <th>longitude</th>
+                            <th>Actualizar</th>
+                            <th>Localizacion</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,8 +41,26 @@
                             <td>{{$user->name}}</td>
                             <td>{{$user->lastname_p}}</td>
                             <td>{{$user->lastname_m}}</td>
-                            <td>{{$user->age}}</td>
-                            <td>{{$user->email}}</td>
+                            <td>
+                                <input type="text" name="latitude" value="{{$user->latitude}}">
+                            </td>
+                            <td>
+                                <input type="text" name="longitude" value="{{$user->longitude}}">
+                            </td>
+                            <td>
+                                <form action="{{ route('actualizar_usuario', $user->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="latitude" value="{{$user->latitude}}">
+                                    <input type="hidden" name="longitude" value="{{$user->longitude}}">
+                                    <button type="submit" class="btn btn-success">Guardar</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="{{ route('mapa') }}" method="GET">
+                                    <button type="button" class="btn btn-primary">Mapa</button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
