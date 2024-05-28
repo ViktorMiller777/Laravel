@@ -57,8 +57,8 @@
                                 </form>
                             </td>
                             <td>
-                                <form action="{{ route('mapa') }}" method="GET">
-                                    <button type="button" class="btn btn-primary">Mapa</button>
+                                <form action="#" method="GET">
+                                    <a href="mapa"><button type="button" class="btn btn-primary">Mapa</button></a>
                                 </form>
                             </td>
                         </tr>

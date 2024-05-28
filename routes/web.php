@@ -23,9 +23,9 @@ Route::get('mapa',function(){
 
 
 
-Route::get('mapa',[UserController::class,'iniciarMapa']);
+Route::get('mapa',[UserController::class,'iniciarMap']);
 
-Route::put('actualizar/{id}', [UserController::class, 'actualizar'])->name('actualizar_usuario');
+// Route::put('actualizar/{id}', [UserController::class, 'actualizar'])->name('actualizar_usuario');
 
 Route::get('dashboard', [UserController::class, 'index'])->name('user.dashboard');
 

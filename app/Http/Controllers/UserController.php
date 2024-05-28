@@ -43,8 +43,8 @@ class UserController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => $request->password,
-            'latitude' => 0,
-            'longitude' => 0,
+            'latitude' => 25.676997,
+            'longitude' => -100.309302,
         ]);
         return view('login')->with('Success','Registro exitoso, porfavor inicia sesion.');
     }
@@ -66,34 +66,6 @@ class UserController extends Controller
         
     }
     
-    public function logi(Request $request){
-
-        $credenciales = $request->only('email','password');
-
-        $validate = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required',
-            'g-recaptcha-response' => 'required|captcha'
-        ]);
-
-        if(Auth::attempt($credenciales)){
-
-            $user = Auth::user();
-
-            $token = $user->createToken('auth_token')->plainTextToken;
-
-            return redirect()->route('user.dashboard')->with('token',$token);
-
-        }else{
-            return back()->withErrors(['message' => 'Credenciales incorrectas.'])->withInput();
-        }
-    }
-
-    public function logout(){
-        Auth::logout();
-
-        return view('login');
-    }
 
     public function login(Request $request)
     {
@@ -132,7 +104,7 @@ class UserController extends Controller
 
     public function iniciarMap()
     {
-        $coord = ['lat' => 25.676997, 'lng' => -100.309302]; // Coordenadas iniciales
+        $coord = ['lat' => 25.676997, 'lng' => -100.309302];
         $zoom = 10;
     
         return view('mapa', compact('coord', 'zoom'));
