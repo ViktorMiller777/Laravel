@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -31,13 +32,28 @@ class AuthController extends Controller
                 'error' => $validator->errors()->all()
             ],400);
         }
-        $newUser = new User($request->input());
+
+        $newUser = new User([
+            'name' => $request->input('name'),
+            'lastname_p' => $request->input('lastname_p'),
+            'lastname_m' => $request->input('lastname_m'),
+            'age' => $request->input('age'),
+            'birthdate' => $request->input('birthdate'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'password' => Hash::make($request->input('password')),
+            'active' => '0', 
+            'latitude' => '25.59887027853254',
+            'longitude' => '-103.47985881534363'
+        ]);
+
         $newUser->save();
-        return response()->json([
-            'status' => true,
-            'message' => 'Usuario creado',
-            'token' => $newUser->createToken('tokenSP')->plainTextToken
-        ],200);
+        return redirect('/home/login');
+        // return response()->json([
+        //     'status' => true,
+        //     'message' => 'Usuario creado',
+        //     'token' => $newUser->createToken('tokenSP')->plainTextToken
+        // ],200);
     }
 
     //FUNCION PARA INICIAR SESION
@@ -62,15 +78,12 @@ class AuthController extends Controller
         }
         $user = User::where('email',$request->email)->first();
         $token = $user->createToken('tolken')->plainTextToken;
-        return view('dashboard', ['token' => $token]);
+        return view('dashboard');
     }
 
     // FUNCION PARA CERRAR SESION
     public function logout(){
         auth()->user()->tokens()->delete(); 
-        return response()->json([
-            'status' => true,
-            'message' => 'Sesion cerrada'
-        ],200);
+        return redirect('/home');
     }
 }

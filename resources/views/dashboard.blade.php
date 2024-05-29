@@ -48,7 +48,7 @@
                                 <input type="text" name="longitude" value="{{$user->longitude}}">
                             </td>
                             <td>
-                                <form action="{{ route('actualizar_usuario', $user->id) }}" method="POST">
+                                <form action="#" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <input type="hidden" name="latitude" value="{{$user->latitude}}">
@@ -67,7 +67,10 @@
                 </table>
             </div>
         </div>
-        <a href="/"><button type="button" class="btn btn-danger">Cerrar sesion</button></a>
+        <form action="/logout" method="GET">
+            @csrf
+            <button type="submit" class="btn btn-danger">Cerrar sesion</button>
+        </form>
         <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
