@@ -33,7 +33,6 @@ class UserController extends Controller
         if ($validator->fails()){
             return response()->json(['errors' => $validator->errors()], 400);
         }
-
         $user = User::create([
             'name' => $request->name,
             'lastname_p' => $request->lastname_p,
@@ -69,6 +68,7 @@ class UserController extends Controller
     public function actualizar(Request $request, $id){
 
         $user = User::findOrFail($id);
+        $user->active = $request->input('active');
         $user->latitude = $request->input('latitude');
         $user->longitude = $request->input('longitude');
 

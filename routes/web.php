@@ -10,7 +10,12 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/',function(){
     return view('welcome');
 });
-
+// Esta es la ruta de la vista dashboard 
+Route::get('/dashboard',function(){
+    return view('dashboard');
+});
+// Y esta es la ruta de la funcion dashboard
+Route::get('/dashboard',[UserController::class,'getUser']);
 
 // Ventana de inicio
 Route::get('/home',function(){
@@ -31,9 +36,6 @@ Route::get('/home/register',function(){
 Route::post('/home/register/bd',[AuthController::class,'register']);
 
 // Tabla usuarios
-Route::get('dashboard',[UserController::class,'getUser']);
-Route::post('/dashboard',[AuthController::class,'login']);
-
 Route::get('/mapa',[UserController::class,'iniciarMap']);
 
 Route::get('/logout',[AuthController::class,'logout']);

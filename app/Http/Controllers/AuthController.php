@@ -78,7 +78,7 @@ class AuthController extends Controller
         }
         $user = User::where('email',$request->email)->first();
         $token = $user->createToken('tolken')->plainTextToken;
-        return view('dashboard');
+        return redirect('/dashboard');
     }
 
     // FUNCION PARA CERRAR SESION

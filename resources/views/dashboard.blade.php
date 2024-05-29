@@ -23,48 +23,48 @@
         <center><h1>-- Welcome to Van der linde band --</h1><center>
         <div class="container">
             <div id="listaUser" class="mt-4">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Apellido paterno</th>
-                            <th>Apellido materno</th>
-                            <th>latitude</th>
-                            <th>longitude</th>
-                            <th>Actualizar</th>
-                            <th>Localizacion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($users as $user)
-                        <tr>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->lastname_p}}</td>
-                            <td>{{$user->lastname_m}}</td>
-                            <td>
-                                <input type="text" name="latitude" value="{{$user->latitude}}">
-                            </td>
-                            <td>
-                                <input type="text" name="longitude" value="{{$user->longitude}}">
-                            </td>
-                            <td>
-                                <form action="#" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="hidden" name="latitude" value="{{$user->latitude}}">
-                                    <input type="hidden" name="longitude" value="{{$user->longitude}}">
-                                    <button type="submit" class="btn btn-success">Guardar</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="#" method="GET">
-                                    <a href="mapa"><button type="button" class="btn btn-primary">Mapa</button></a>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido paterno</th>
+                        <th>Apellido materno</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Activo</th>
+                        <th>Actualizar</th>
+                        <th>Localizacion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($users as $user)
+                    <tr>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->lastname_p}}</td>
+                        <td>{{$user->lastname_m}}</td>
+                        <td><input type="text" name="latitude" value="{{$user->latitude}}"></td>
+                        <td><input type="text" name="longitude" value="{{$user->longitude}}"></td>
+                        <td><input type="number" name="active" value="{{$user->active}}" min="0" max="1"></td>
+                        <td>
+                            <form action="#" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="latitude" value="{{$user->latitude}}">
+                                <input type="hidden" name="longitude" value="{{$user->longitude}}">
+                                <input type="hidden" name="active" value="{{$user->active}}">
+                                <button type="submit" class="btn btn-success">Guardar</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="#" method="GET">
+                                <a href="mapa"><button type="button" class="btn btn-primary">Mapa</button></a>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
             </div>
         </div>
         <form action="/logout" method="GET">
