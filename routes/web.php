@@ -2,33 +2,38 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 
 
 // Rutas de vistas
+
+
 Route::get('/',function(){
+    return view('home');
+});
+Route::get('/home/login',function(){
     return view('login'); // Formulario login
 });
 
-Route::get('register',function(){
+Route::get('/home/register',function(){
     return view('register'); // Formulario register
 });
 
-Route::get('dashboard',function(){
+Route::get('/home/dashboard',function(){ // Pagina de inicio
     return view('dashboard');
 });
 
-Route::get('mapa',function(){
+Route::get('/home/mapa',function(){ // Pagina de mapa
     return view('mapa');
 });
 
+Route::get('/dashboard',[UserController::class,'getUser']);
+
+Route::post('/login',[AuthController::class,'login']);
+
+Route::post('/register',[AuthController::class,'register']);
+
+Route::get('/mapa',[UserController::class,'iniciarMap']);
 
 
-Route::get('mapa',[UserController::class,'iniciarMap']);
 
-// Route::put('actualizar/{id}', [UserController::class, 'actualizar'])->name('actualizar_usuario');
-
-Route::get('dashboard', [UserController::class, 'index'])->name('user.dashboard');
-
-Route::post('register',[UserController::class,'register'])->name('registerpost');
-
-Route::post('login',[UserController::class,'login'])->name('loginpost');

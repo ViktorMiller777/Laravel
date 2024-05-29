@@ -9,7 +9,7 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function index()
+    public function getUser()
     {
         $users = User::all();
         return view('dashboard',['users'=>$users]);
@@ -66,33 +66,6 @@ class UserController extends Controller
         
     }
     
-
-    public function login(Request $request)
-    {
-        $validate = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        if ($validate->fails()) {
-  
-            return back()->withErrors($validate)->withInput();
-        }
-
-
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-
-            $user = Auth::user();
-            $token = $user->createToken('auth_token')->plainTextToken;
-            return redirect()->route('user.dashboard')->with('token', $token);
-        } else {
-        
-            return back()->withErrors(['message' => 'Credenciales incorrectas.'])->withInput();
-        }
-    }
-
     public function actualizar(Request $request, $id){
 
         $user = User::findOrFail($id);

@@ -30,7 +30,7 @@
 
                             <h2 class="fw-bold mb-1">Register</h2>
                             <p class="text-white-50 mb-5">Porfavor ingresa tus datos!</p>
-                            <form action="{{ route('registerpost') }}" method="POST" id="registerloco">
+                            <form action="/register" method="POST" id="registerloco">
                                 @csrf
                                 <div data-mdb-input-init class="form-outline form-white mb-4">
                                     <input type="text" name="name" id="name" class="form-control form-control-lg"/>

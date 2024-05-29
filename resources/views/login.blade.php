@@ -37,7 +37,7 @@
                   </script>
                   @endif
             
-                  <form action="{{ route('loginpost') }}" method="POST">
+                  <form action="/dashboard" method="POST">
                   @csrf
                     <div data-mdb-input-init class="form-outline form-white mb-4">
                       <input type="email" name="email" id="email" class="form-control form-control-lg" />
