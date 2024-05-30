@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MapaController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -38,7 +39,10 @@ Route::post('/home/register/bd',[AuthController::class,'register']);
 // Tabla usuarios
 Route::get('/mapa',[UserController::class,'iniciarMap']);
 
+Route::put('/dashboard/user/{id}',[UserController::class,'actualizar']);
+
 Route::get('/logout',[AuthController::class,'logout']);
 
-
+Route::get('/home/mapa/{id}',[MapaController::class,'mapaUnico']);
+Route::get('/home/mundo',[MapaController::class,'mapaCompleto']);
 

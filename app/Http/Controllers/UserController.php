@@ -26,8 +26,9 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'phone' => 'required|numeric|unique:users',
             'password' => 'required|string',
-            'latitude' => 'numeric',
-            'longitude' => 'numeric',
+            'active' => 'string',
+            'latitude' => 'string',
+            'longitude' => 'string',
         ]);
 
         if ($validator->fails()){
@@ -42,6 +43,7 @@ class UserController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => $request->password,
+            'active' => 0,
             'latitude' => 25.676997,
             'longitude' => -100.309302,
         ]);
@@ -67,12 +69,21 @@ class UserController extends Controller
     
     public function actualizar(Request $request, $id){
 
-        $user = User::findOrFail($id);
+        $validator = Validator::make($request->all(), [
+            'active' => 'required|numeric|max:255',
+            'latitude' => 'required|numeric|max:255',
+            'longitude' => 'required|numeric|max:255',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['errors'=>$validator->errors()],401);
+        }
+        $user = User::find($id);
         $user->active = $request->input('active');
         $user->latitude = $request->input('latitude');
         $user->longitude = $request->input('longitude');
-
         $user->save();
+        return redirect('/dashboard');
     }
 
     public function iniciarMap()

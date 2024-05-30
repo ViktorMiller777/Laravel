@@ -39,32 +39,32 @@
                 <tbody>
                     @foreach($users as $user)
                     <tr>
-                        <td>{{$user->name}}</td>
-                        <td>{{$user->lastname_p}}</td>
-                        <td>{{$user->lastname_m}}</td>
-                        <td><input type="text" name="latitude" value="{{$user->latitude}}"></td>
-                        <td><input type="text" name="longitude" value="{{$user->longitude}}"></td>
-                        <td><input type="number" name="active" value="{{$user->active}}" min="0" max="1"></td>
-                        <td>
-                            <form action="#" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="latitude" value="{{$user->latitude}}">
-                                <input type="hidden" name="longitude" value="{{$user->longitude}}">
-                                <input type="hidden" name="active" value="{{$user->active}}">
-                                <button type="submit" class="btn btn-success">Guardar</button>
+                        <form action="/dashboard/user/{{ $user->id }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                            <td>{{$user->name}}</td>
+                            <td>{{$user->lastname_p}}</td>
+                            <td>{{$user->lastname_m}}</td>
+                            <td><input name="latitude" value="{{$user->latitude}}"></td>
+                            <td><input name="longitude" value="{{$user->longitude}}"></td>
+                            <td><input name="active" value="{{$user->active}}"></td>
+                            <td><button type="submit" class="btn btn-primary">Guardar</button></td>
+                            <td>   
                             </form>
-                        </td>
-                        <td>
-                            <form action="#" method="GET">
-                                <a href="mapa"><button type="button" class="btn btn-primary">Mapa</button></a>
-                            </form>
-                        </td>
+                                <form action="/home/mapa/{{ $user->id }}" method="GET">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">Mapa</button>
+                                </form>
+                            </td>
+                        
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-
+            <form action="/home/mundo" method="GET">
+                @csrf
+                <button type="submit" class="btn btn-primary">Mundo</button>
+            </form><br>
             </div>
         </div>
         <form action="/logout" method="GET">

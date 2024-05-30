@@ -21,7 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::put('actualizar/{id}', [UserController::class, 'actualizar'])->name('actualizar_usuario');
 
 
 
