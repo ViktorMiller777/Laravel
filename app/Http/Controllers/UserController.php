@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use App\Models\User;
 
 class UserController extends Controller
@@ -93,5 +94,21 @@ class UserController extends Controller
     
         return view('mapa', compact('coord', 'zoom'));
     }
+
     
+    public function verificacion(Request $request)
+    {
+        $inputCode = $request->input('verificationCode');
+
+        if ($inputCode == Session::get('verification_code')) {
+            $user = User::where('email', Session::get('email'))->first();
+            if ($user) {
+                $user->active = '1';
+                $user->save();
+            }
+            return redirect('/home')->with('success', 'Verificación exitosa.');
+        } else {
+            return redirect('/home/correo')->with('error', 'El codigo de verificacion no coinciden.');
+        }
+    }    
 }

@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MapaController;
 use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Correo;
 
 
 // Rutas de vistas
@@ -34,6 +36,13 @@ Route::post('/home/login/bd',[AuthController::class,'login']);
 Route::get('/home/register',function(){
     return view('register');
 });
+
+Route::get('/home/correo',function(){
+    return view('correo');
+});
+
+Route::post('/home/correo/bd',[UserController::class,'verificacion']);
+
 // Funcion register
 Route::post('/home/register/bd',[AuthController::class,'register']);
 
@@ -47,8 +56,9 @@ Route::get('/logout',[AuthController::class,'logout']);
 Route::get('/home/mapa/{id}',[MapaController::class,'mapaUnico'])->middleware(AuthMiddleware::class);;
 Route::get('/home/mundo',[MapaController::class,'mapaCompleto'])->middleware(AuthMiddleware::class);
 
-Route::middleware(['auth', 'frontend.stateful'])->group(function () {
-    // Rutas protegidas aquí
+Route::get('/mail', function(){
+    Mail::to('cabellordz15@gmail.com')
+        ->send(new Correo());
 });
 
 
