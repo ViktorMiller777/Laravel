@@ -28,8 +28,12 @@ Route::get('/home',function(){
 
 // Formulario login
 Route::get('/home/login',function(){
+    if (Auth::check()) {
+        return redirect('/dashboard');
+    }
     return view('login'); // Formulario login
 });
+
 Route::post('/home/login/bd',[AuthController::class,'login']);
 
  // Formulario register

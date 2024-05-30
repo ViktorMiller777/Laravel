@@ -108,7 +108,7 @@ class UserController extends Controller
             }
             return redirect('/home')->with('success', 'Verificación exitosa.');
         } else {
-            return redirect('/home/correo')->with('error', 'El codigo de verificacion no coinciden.');
+            return redirect('/home/correo')->with('error', 'El codigo de verificacion no coinciden');
         }
     }    
 }
