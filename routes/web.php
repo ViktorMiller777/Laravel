@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MapaController;
+use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -16,7 +17,7 @@ Route::get('/dashboard',function(){
     return view('dashboard');
 });
 // Y esta es la ruta de la funcion dashboard
-Route::get('/dashboard',[UserController::class,'getUser']);
+Route::get('/dashboard',[UserController::class,'getUser'])->middleware(AuthMiddleware::class);
 
 // Ventana de inicio
 Route::get('/home',function(){
@@ -43,6 +44,11 @@ Route::put('/dashboard/user/{id}',[UserController::class,'actualizar']);
 
 Route::get('/logout',[AuthController::class,'logout']);
 
-Route::get('/home/mapa/{id}',[MapaController::class,'mapaUnico']);
-Route::get('/home/mundo',[MapaController::class,'mapaCompleto']);
+Route::get('/home/mapa/{id}',[MapaController::class,'mapaUnico'])->middleware(AuthMiddleware::class);;
+Route::get('/home/mundo',[MapaController::class,'mapaCompleto'])->middleware(AuthMiddleware::class);
+
+Route::middleware(['auth', 'frontend.stateful'])->group(function () {
+    // Rutas protegidas aquí
+});
+
 

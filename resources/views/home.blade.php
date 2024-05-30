@@ -17,11 +17,12 @@
             crossorigin="anonymous"
         />
     </head>
-
     <body>
-        <h1>Welcome to my domain</h1>
+        <center>
+        <h1>Selecciona una opcion</h1>
         <a href="/home/login"><button type="submit" class="btn btn-success">Iniciar sesion</button></a>
         <a href="/home/register"><button type="submit" class="btn btn-primary">Registrarme</button></a>
+        </center>
         <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
