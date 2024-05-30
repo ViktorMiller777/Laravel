@@ -15,6 +15,6 @@ class MapaController extends Controller
 
     public function mapaCompleto(){
         $users = User::all();
-        return view('mundo',['user' => $users]);
+        return view('mundo',['users' => $users]);
     }
 }
